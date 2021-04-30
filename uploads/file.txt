@@ -1,0 +1,6 @@
+PORT=5001
+JWT_SECRET=somethingsecret
+PAYPAL_CLIENT_ID=sb
+accessKeyId=accessKeyId
+secretAccessKey=secretAccessKey
+MONGODB_URL=mongodb+srv://admin:12345@cluster0.hkdog.mongodb.net
