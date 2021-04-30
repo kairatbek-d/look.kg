@@ -1,0 +1,1 @@
+This is global part of project.
