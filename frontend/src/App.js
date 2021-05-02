@@ -66,7 +66,7 @@ function App() {
               <i className="fa fa-bars"></i>
             </button>
             <Link className="brand" to="/">
-              amazona
+              Look.kg
             </Link>
           </div>
           <div>
