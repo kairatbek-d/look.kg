@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveShippingAddress } from '../actions/cartActions';
 import CheckoutSteps from '../components/CheckoutSteps';
@@ -6,8 +6,14 @@ import CheckoutSteps from '../components/CheckoutSteps';
 export default function ShippingAddressScreen(props) {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
+
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
+  const [lat] = useState(shippingAddress.lat);
+  const [lng] = useState(shippingAddress.lng);
+  const userAddressMap = useSelector((state) => state.userAddressMap);
+  const { address: addressMap } = userAddressMap;
+  
   if (!userInfo) {
     props.history.push('/signin');
   }
@@ -19,11 +25,50 @@ export default function ShippingAddressScreen(props) {
   const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(
-      saveShippingAddress({ fullName, address, city, postalCode, country })
-    );
-    props.history.push('/payment');
+    let moveOn = true;
+    if (!lat || !lng) {
+      moveOn = window.confirm(
+        'You did not set your location on map. Continue?'
+      );
+    }
+    if (moveOn) {
+      dispatch(
+        saveShippingAddress({
+          fullName,
+          address,
+          city,
+          postalCode,
+          country,
+          lat,
+          lng,
+        })
+      );
+      props.history.push('/payment');
+    }
   };
+  const chooseOnMap = () => {
+    dispatch(
+      saveShippingAddress({
+        fullName,
+        address,
+        city,
+        postalCode,
+        country,
+        lat,
+        lng,
+      })
+    );
+    props.history.push('/map');
+  };
+
+  useEffect(() => {
+    if(addressMap) {
+      setCity(addressMap.city);
+      setCountry(addressMap.country);
+      setAddress(addressMap.address);
+    }
+  }, [addressMap]);
+
   return (
     <div>
       <CheckoutSteps step1 step2></CheckoutSteps>
@@ -85,6 +130,12 @@ export default function ShippingAddressScreen(props) {
             onChange={(e) => setCountry(e.target.value)}
             required
           ></input>
+        </div>
+        <div>
+          <label htmlFor="chooseOnMap">Location</label>
+          <button type="button" onClick={chooseOnMap}>
+            Choose On Map
+          </button>
         </div>
         <div>
           <label />
