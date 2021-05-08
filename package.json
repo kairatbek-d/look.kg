@@ -35,8 +35,6 @@
     "socket.io": "^4.0.1"
   },
   "devDependencies": {
-    "eslint": "^7.25.0",
-    "eslint-plugin-react": "^7.23.2",
     "nodemon": "^2.0.4"
   }
 }
