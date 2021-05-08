@@ -27,27 +27,79 @@ export default function PaymentMethodScreen(props) {
           <div>
             <input
               type="radio"
-              id="paypal"
-              value="PayPal"
+              id="visa"
+              value="Visa Card"
               name="paymentMethod"
               required
-              checked
+              defaultChecked
               onChange={(e) => setPaymentMethod(e.target.value)}
             ></input>
-            <label htmlFor="paypal">PayPal</label>
+            <label htmlFor="visa">Visa</label>
           </div>
         </div>
         <div>
           <div>
             <input
               type="radio"
-              id="stripe"
-              value="Stripe"
+              id="cash"
+              value="Наличие"
               name="paymentMethod"
               required
               onChange={(e) => setPaymentMethod(e.target.value)}
             ></input>
-            <label htmlFor="stripe">Stripe</label>
+            <label htmlFor="cash">Наличие</label>
+          </div>
+        </div>
+        <div>
+          <div>
+            <input
+              type="radio"
+              id="elsom"
+              value="Элсом"
+              name="paymentMethod"
+              required
+              onChange={(e) => setPaymentMethod(e.target.value)}
+            ></input>
+            <label htmlFor="elsom">Элсом</label>
+          </div>
+        </div>
+        <div>
+          <div>
+            <input
+              type="radio"
+              id="O!Money"
+              value="О! Деньги"
+              name="paymentMethod"
+              required
+              onChange={(e) => setPaymentMethod(e.target.value)}
+            ></input>
+            <label htmlFor="O!Money">О! Деньги</label>
+          </div>
+        </div>
+        <div>
+          <div>
+            <input
+              type="radio"
+              id="balance.kg"
+              value="balance.kg"
+              name="paymentMethod"
+              required
+              onChange={(e) => setPaymentMethod(e.target.value)}
+            ></input>
+            <label htmlFor="balance.kg">balance.kg</label>
+          </div>
+        </div>
+        <div>
+          <div>
+            <input
+              type="radio"
+              id="MBank"
+              value="M Bank"
+              name="paymentMethod"
+              required
+              onChange={(e) => setPaymentMethod(e.target.value)}
+            ></input>
+            <label htmlFor="MBank">M Bank</label>
           </div>
         </div>
         <div>

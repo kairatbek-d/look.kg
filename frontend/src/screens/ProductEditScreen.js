@@ -16,9 +16,10 @@ export default function ProductEditScreen(props) {
   const [brand, setBrand] = useState('');
   const [description, setDescription] = useState('');
 
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
-
   const productUpdate = useSelector((state) => state.productUpdate);
   const {
     loading: loadingUpdate,
@@ -60,22 +61,23 @@ export default function ProductEditScreen(props) {
       })
     );
   };
+
   const [loadingUpload, setLoadingUpload] = useState(false);
   const [errorUpload, setErrorUpload] = useState('');
-
-  const userSignin = useSelector((state) => state.userSignin);
-  const { userInfo } = userSignin;
   const uploadFileHandler = async (e) => {
     const file = e.target.files[0];
     const bodyFormData = new FormData();
     bodyFormData.append('image', file);
     setLoadingUpload(true);
     try {
-      const { data } = await Axios.post('/api/uploads', bodyFormData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${userInfo.token}`,
-        },
+      const { data } = 
+      await Axios.post('/api/uploads/delete', {image}).then( res => {
+        return Axios.post('/api/uploads', bodyFormData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${userInfo.token}`
+          }
+          })
       });
       setImage(data);
       setLoadingUpload(false);
@@ -89,7 +91,7 @@ export default function ProductEditScreen(props) {
     <div>
       <form className="form" onSubmit={submitHandler}>
         <div>
-          <h1>Edit Product {productId}</h1>
+          <h1>Edit Product "{name}"</h1>
         </div>
         {loadingUpdate && <LoadingBox></LoadingBox>}
         {errorUpdate && <MessageBox variant="danger">{errorUpdate}</MessageBox>}
@@ -127,6 +129,7 @@ export default function ProductEditScreen(props) {
                 placeholder="Enter image"
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
+                disabled
               ></input>
             </div>
             <div>

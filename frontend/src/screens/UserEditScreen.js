@@ -5,10 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { detailsUser, updateUser } from '../actions/userActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-import { USER_UPDATE_RESET } from '../constants/userConstants';
+import { USER_DETAILS_RESET, USER_UPDATE_RESET } from '../constants/userConstants';
 
 export default function UserEditScreen(props) {
   const userId = props.match.params.id;
+  
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [isSeller, setIsSeller] = useState(false);
@@ -28,6 +29,7 @@ export default function UserEditScreen(props) {
   useEffect(() => {
     if (successUpdate) {
       dispatch({ type: USER_UPDATE_RESET });
+      dispatch({ type: USER_DETAILS_RESET });
       props.history.push('/userlist');
     }
     if (!user) {

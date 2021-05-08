@@ -27,7 +27,8 @@ import {
   USER_TOPSELLERS_LIST_REQUEST,
   USER_TOPSELLERS_LIST_SUCCESS,
   USER_TOPSELLERS_LIST_FAIL,
-  USER_ADDRESS_MAP_CONFIRM
+  USER_ADDRESS_MAP_CONFIRM,
+  USER_DETAILS_RESET
 } from '../constants/userConstants';
 
 export const userRegisterReducer = (state = {}, action) => {
@@ -65,6 +66,8 @@ export const userDetailsReducer = (state = { loading: true }, action) => {
       return { loading: false, user: action.payload };
     case USER_DETAILS_FAIL:
       return { loading: false, error: action.payload };
+    case USER_DETAILS_RESET:
+      return {};
     default:
       return state;
   }

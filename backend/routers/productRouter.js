@@ -4,7 +4,7 @@ import expressAsyncHandler from 'express-async-handler';
 import data from '../data.js';
 import User from '../models/userModel.js';
 import Product from '../models/productModel.js';
-import { isAdmin, isAuth, isSellerOrAdmin } from '../utils.js';
+import { isAuth, isSellerOrAdmin } from '../utils.js';
 
 const productRouter = express.Router();
 
@@ -92,7 +92,8 @@ productRouter.get(
 productRouter.get(
   '/insta',
   expressAsyncHandler(async (req, res) => {
-    const { data } = await Axios.get(`https://www.instagram.com/kairatbek_d/?__a=1`);
+    const { data } = await Axios.get(`https://www.instagram.com/kairatbek_/?__a=1`);
+    console.log(data);
     res.send(data);
   })
 );
@@ -163,8 +164,16 @@ productRouter.delete(
   expressAsyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id);
     if (product) {
+      const user = await User.findById(product.seller);
+      user.seller.rating = 
+        ((user.seller.rating * user.seller.numReviews)
+          - product.reviews.reduce((a, c) => c.rating + a, 0)) /
+        (user.seller.numReviews - product.numReviews);
+      user.seller.numReviews = user.seller.numReviews - product.numReviews;
+      const updatedUser = await user.save();
+
       const deleteProduct = await product.remove();
-      res.send({ message: 'Product Deleted', product: deleteProduct });
+      res.send({ message: 'Product Deleted', product: deleteProduct, seller: updatedUser });
     } else {
       res.status(404).send({ message: 'Product Not Found' });
     }
@@ -175,8 +184,7 @@ productRouter.post(
   '/:id/reviews',
   isAuth,
   expressAsyncHandler(async (req, res) => {
-    const productId = req.params.id;
-    const product = await Product.findById(productId);
+    const product = await Product.findById(req.params.id);
     const user = await User.findById(product.seller);
     if (product) {
       if (product.reviews.find((x) => x.name === req.user.name)) {
@@ -196,10 +204,10 @@ productRouter.post(
         product.reviews.length;
       const updatedProduct = await product.save();
 
-      user.seller.numReviews = user.seller.numReviews + 1;
       user.seller.rating = 
-        (user.seller.rating + review.rating) /
-        user.seller.numReviews;
+        ((user.seller.rating * user.seller.numReviews) + review.rating) /
+        (user.seller.numReviews + 1);
+      user.seller.numReviews = user.seller.numReviews + 1;
       const updatedUser = await user.save();
       
       res.status(201).send({

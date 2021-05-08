@@ -6,6 +6,8 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 
 export default function RegisterScreen(props) {
+  const sellerMode = props.match.path.indexOf('/registerSeller') >= 0;
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,10 +30,12 @@ export default function RegisterScreen(props) {
     }
   };
   useEffect(() => {
-    if (userInfo) {
+    if (userInfo && sellerMode) {
+      props.history.push('/registerCompany');
+    } else if (userInfo) {
       props.history.push(redirect);
     }
-  }, [props.history, redirect, userInfo]);
+  }, [props.history, redirect, sellerMode, userInfo]);
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>

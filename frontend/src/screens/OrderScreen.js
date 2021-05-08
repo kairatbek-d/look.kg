@@ -1,5 +1,3 @@
-import Axios from 'axios';
-import { PayPalButton } from 'react-paypal-button-v2';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -33,17 +31,6 @@ export default function OrderScreen(props) {
   } = orderDeliver;
   const dispatch = useDispatch();
   useEffect(() => {
-    const addPayPalScript = async () => {
-      const { data } = await Axios.get('/api/config/paypal');
-      const script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
-      script.async = true;
-      script.onload = () => {
-        setSdkReady(true);
-      };
-      document.body.appendChild(script);
-    };
     if (
       !order ||
       successPay ||
@@ -56,7 +43,7 @@ export default function OrderScreen(props) {
     } else {
       if (!order.isPaid) {
         if (!window.paypal) {
-          addPayPalScript();
+          setSdkReady(true);
         } else {
           setSdkReady(true);
         }
@@ -64,8 +51,8 @@ export default function OrderScreen(props) {
     }
   }, [dispatch, order, orderId, sdkReady, successPay, successDeliver]);
 
-  const successPaymentHandler = (paymentResult) => {
-    dispatch(payOrder(order, paymentResult));
+  const successPaymentHandler = () => {
+    dispatch(payOrder(order, order.paymentMethod));
   };
   const deliverHandler = () => {
     dispatch(deliverOrder(order._id));
@@ -134,7 +121,6 @@ export default function OrderScreen(props) {
                             {item.name}
                           </Link>
                         </div>
-
                         <div>
                           {item.qty} x ${item.price} = ${item.qty * item.price}
                         </div>
@@ -190,16 +176,17 @@ export default function OrderScreen(props) {
                         <MessageBox variant="danger">{errorPay}</MessageBox>
                       )}
                       {loadingPay && <LoadingBox></LoadingBox>}
-
-                      <PayPalButton
-                        amount={order.totalPrice}
-                        onSuccess={successPaymentHandler}
-                      ></PayPalButton>
+                      <button
+                        type="button"
+                        className="secondary block"
+                        onClick={successPaymentHandler}>
+                        Pay
+                      </button>
                     </>
                   )}
                 </li>
               )}
-              {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+              {(userInfo.isAdmin || userInfo.isSeller ) && order.isPaid && !order.isDelivered && (
                 <li>
                   {loadingDeliver && <LoadingBox></LoadingBox>}
                   {errorDeliver && (
@@ -208,8 +195,7 @@ export default function OrderScreen(props) {
                   <button
                     type="button"
                     className="primary block"
-                    onClick={deliverHandler}
-                  >
+                    onClick={deliverHandler}>
                     Deliver Order
                   </button>
                 </li>
