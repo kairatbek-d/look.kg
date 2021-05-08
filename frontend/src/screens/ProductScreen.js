@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Magnifier from 'react-magnifier';
+// import Magnifier from 'react-magnifier';
 import { createReview, detailsProduct } from '../actions/productActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
@@ -64,8 +64,8 @@ export default function ProductScreen(props) {
           <Link to="/">Back to result</Link>
           <div className="row top">
             <div className="col-2">
-              <Magnifier src={product.image} className="large" zoomFactor="1" />
-              {/* <img src={product.image} className="large" alt="product" /> */}
+              {/* <Magnifier src={product.image} className="large" zoomFactor="1" /> */}
+              <img src={product.image} className="large" alt="product" />
             </div>
             <div className="col-1">
               <ul>
