@@ -12,6 +12,7 @@ import {
   orderSummaryReducer,
 } from './reducers/orderReducers';
 import {
+  instagramProductListReducer,
   productCategoryListReducer,
   productCreateReducer,
   productDeleteReducer,
@@ -50,6 +51,7 @@ const initialState = {
 };
 const reducer = combineReducers({
   productList: productListReducer,
+  instagramProducts: instagramProductListReducer,
   productDetails: productDetailsReducer,
   cart: cartReducer,
   userSignin: userSigninReducer,

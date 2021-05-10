@@ -34,6 +34,7 @@ const brandStorage = multer.diskStorage({
     } else {
       fs.mkdirSync(`uploads/${req.user._id}`);
       fs.mkdirSync(`uploads/${req.user._id}/brand`);
+      fs.mkdirSync(`uploads/${req.user._id}/instagram`);
       cb(null, `uploads/${req.user._id}/brand`);
     }
   },

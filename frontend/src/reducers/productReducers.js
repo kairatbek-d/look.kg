@@ -24,6 +24,9 @@ const {
   PRODUCT_REVIEW_CREATE_SUCCESS,
   PRODUCT_REVIEW_CREATE_FAIL,
   PRODUCT_REVIEW_CREATE_RESET,
+  INSTAGRAM_PRODUCT_REQUEST,
+  INSTAGRAM_PRODUCT_FAIL,
+  INSTAGRAM_PRODUCT_SUCCESS,
 } = require('../constants/productConstants');
 
 export const productListReducer = (
@@ -41,6 +44,27 @@ export const productListReducer = (
         page: action.payload.page,
       };
     case PRODUCT_LIST_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const instagramProductListReducer = (
+  state = { loading: true, products: [] },
+  action
+) => {
+  switch (action.type) {
+    case INSTAGRAM_PRODUCT_REQUEST:
+      return { loading: true };
+    case INSTAGRAM_PRODUCT_SUCCESS:
+      return {
+        loading: false,
+        products: action.payload.products,
+        pages: action.payload.pages,
+        end_cursor: action.payload.end_cursor
+      };
+    case INSTAGRAM_PRODUCT_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

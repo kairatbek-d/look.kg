@@ -21,6 +21,9 @@ import {
   PRODUCT_REVIEW_CREATE_SUCCESS,
   PRODUCT_REVIEW_CREATE_FAIL,
   PRODUCT_REVIEW_CREATE_REQUEST,
+  INSTAGRAM_PRODUCT_REQUEST,
+  INSTAGRAM_PRODUCT_SUCCESS,
+  INSTAGRAM_PRODUCT_FAIL,
 } from '../constants/productConstants';
 
 export const listProducts = ({
@@ -43,6 +46,21 @@ export const listProducts = ({
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message });
+  }
+};
+
+export const listInstagramProducts = ({pageNumber = '', seller = '', endCursor = ''}) => async (dispatch) => {
+  dispatch({
+    type: INSTAGRAM_PRODUCT_REQUEST,
+  });
+  try {
+    const { data } = await Axios.get(
+      `/api/products/instagram?pageNumber=${pageNumber}&seller=${seller}&endCursor=${endCursor}`
+    );
+    console.log(data)
+    dispatch({ type: INSTAGRAM_PRODUCT_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({ type: INSTAGRAM_PRODUCT_FAIL, payload: error.message });
   }
 };
 
@@ -73,7 +91,7 @@ export const detailsProduct = (productId) => async (dispatch) => {
     });
   }
 };
-export const createProduct = () => async (dispatch, getState) => {
+export const createProduct = (product = {}) => async (dispatch, getState) => {
   dispatch({ type: PRODUCT_CREATE_REQUEST });
   const {
     userSignin: { userInfo },
@@ -82,7 +100,8 @@ export const createProduct = () => async (dispatch, getState) => {
     const { data } = await Axios.post(
       '/api/products',
       {
-        userInfo
+        userInfo,
+        product
       },
       {
         headers: { Authorization: `Bearer ${userInfo.token}` },

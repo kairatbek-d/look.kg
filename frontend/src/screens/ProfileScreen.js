@@ -16,6 +16,7 @@ export default function ProfileScreen(props) {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [sellerName, setSellerName] = useState('');
   const [sellerLogo, setSellerLogo] = useState('');
+  const [instagram, setInstagram] = useState('');
   const [sellerDescription, setSellerDescription] = useState('');
 
   const userSignin = useSelector((state) => state.userSignin);
@@ -47,6 +48,9 @@ export default function ProfileScreen(props) {
         setSellerName(user.seller.name);
         setSellerLogo(user.seller.logo);
         setSellerDescription(user.seller.description);
+        if(user.seller.instagram) {
+          setInstagram(user.seller.instagram.username);
+        }
       }
     }
   }, [dispatch, props.history, userInfo._id, user, successUpdate, sellerMode]);
@@ -61,6 +65,7 @@ export default function ProfileScreen(props) {
           userId: user._id,
           name,
           email,
+          instagram,
           password,
           sellerName,
           sellerLogo,
@@ -79,7 +84,7 @@ export default function ProfileScreen(props) {
     setLoadingUpload(true);
     try {
       const { data } = 
-      await Axios.post('/api/uploads/delete', {sellerLogo}).then( res => {
+      await Axios.post('/api/uploads/delete', {sellerLogo}).then( () => {
         return Axios.post('/api/uploads/brand', bodyFormData, {
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -106,7 +111,7 @@ export default function ProfileScreen(props) {
           <>
             {loadingUpdate && <LoadingBox></LoadingBox>}
             {errorUpdate && (
-              <MessageBox variant="danger">{errorUpdate}</MessageBox>
+              <MessageBox variant="danger">Can not update your profile, check the fields and update!</MessageBox>
             )}
             {((user && user.isSeller) || !sellerMode) && (
               <>
@@ -178,6 +183,16 @@ export default function ProfileScreen(props) {
                     value={sellerLogo}
                     onChange={(e) => setSellerLogo(e.target.value)}
                     disabled
+                  ></input>
+                </div>
+                <div>
+                  <label htmlFor="email">Instagram</label>
+                  <input
+                    id="instagram"
+                    type="text"
+                    placeholder="Enter instagram username"
+                    value={instagram}
+                    onChange={(e) => setInstagram(e.target.value)}
                   ></input>
                 </div>
                 <div>

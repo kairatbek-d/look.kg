@@ -11,6 +11,10 @@ const userSchema = new mongoose.Schema(
       name: String,
       logo: String,
       description: String,
+      instagram: {
+        username: String,
+        id: String
+      },
       rating: { type: Number, default: 0, required: true },
       numReviews: { type: Number, default: 0, required: true },
     },

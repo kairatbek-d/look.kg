@@ -5,6 +5,20 @@ import data from '../data.js';
 import User from '../models/userModel.js';
 import Product from '../models/productModel.js';
 import { isAuth, isSellerOrAdmin } from '../utils.js';
+import fs from "fs";
+import https from 'https';
+
+function saveImageToDisk(url, path) {
+  try {
+    var fullUrl = url
+    var localPath = fs.createWriteStream(path)
+    https.get(fullUrl, function (response) {
+      response.pipe(localPath);
+    })
+  } catch(error) {
+    console.log(error);
+  }
+}
 
 const productRouter = express.Router();
 
@@ -92,9 +106,35 @@ productRouter.get(
 productRouter.get(
   '/insta',
   expressAsyncHandler(async (req, res) => {
-    const { data } = await Axios.get(`https://www.instagram.com/kairatbek_/?__a=1`);
-    console.log(data);
+    const { data } = await Axios.get(`https://www.instagram.com/kairatbek_d/?__a=1`);
     res.send(data);
+  })
+);
+
+productRouter.get(
+  '/instagram',
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.query.seller);
+    const pageSize = 2;
+    const { data } = await Axios.get(`https://www.instagram.com/graphql/query/?query_id=17888483320059182&variables={"id": "${user.seller.instagram.id}", "first": ${pageSize}, "after": "${req.query.endCursor}"}`);
+    const pages = Math.ceil(data.data.user.edge_owner_to_timeline_media.count / pageSize);
+    const page_info = data.data.user.edge_owner_to_timeline_media.page_info.end_cursor;
+    const products = data.data.user.edge_owner_to_timeline_media.edges;
+    const instagramProducts = [];
+
+    products.map((product) => {
+      var imageLink = `./uploads/${user._id}/instagram/${product.node.id}.jpg`;
+      if(!fs.existsSync(imageLink)) {
+        saveImageToDisk(product.node.display_url, imageLink);
+      }
+      instagramProducts.push({
+        id: product.node.id,
+        imageLink: imageLink,
+        likes: product.node.edge_media_preview_like.count,
+        text: product.node.edge_media_to_caption.edges[0].node.text
+      });
+    })
+    res.send({ products: instagramProducts, pages: pages, end_cursor: page_info })
   })
 );
 
@@ -120,14 +160,14 @@ productRouter.post(
   expressAsyncHandler(async (req, res) => {
     const product = new Product({
       name: 'sample name ' + Date.now(),
-      image: '/images/p1.jpg',
+      image: req.body.product.image || '/images/p1.jpg',
       price: 0,
       category: 'sample category',
       brand: 'sample brand',
       countInStock: 0,
       rating: 0,
       numReviews: 0,
-      description: 'sample description',
+      description: req.body.product.description || 'sample description',
       seller: req.body.userInfo._id
     });
     const createdProduct = await product.save();
@@ -165,10 +205,11 @@ productRouter.delete(
     const product = await Product.findById(req.params.id);
     if (product) {
       const user = await User.findById(product.seller);
-      user.seller.rating = 
+      const rating = 
         ((user.seller.rating * user.seller.numReviews)
           - product.reviews.reduce((a, c) => c.rating + a, 0)) /
         (user.seller.numReviews - product.numReviews);
+      user.seller.rating = Number(rating) || 0;
       user.seller.numReviews = user.seller.numReviews - product.numReviews;
       const updatedUser = await user.save();
 

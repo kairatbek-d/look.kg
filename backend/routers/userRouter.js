@@ -1,4 +1,5 @@
 import express from 'express';
+import Axios from 'axios';
 import expressAsyncHandler from 'express-async-handler';
 import bcrypt from 'bcryptjs';
 import data from '../data.js';
@@ -89,6 +90,13 @@ userRouter.put(
       user.seller.name = req.body.sellerName || user.seller.name;
       user.seller.logo = req.body.sellerLogo || user.seller.logo;
       user.seller.description = req.body.sellerDescription || user.seller.description;
+
+      if(req.body.instagram) {
+        user.seller.instagram.username = req.body.instagram;
+        const { data } = await Axios.get(`https://www.instagram.com/${req.body.instagram}/?__a=1`);
+        user.seller.instagram.id = data.graphql.user.id;
+      }
+
       if (req.body.password) {
         user.password = bcrypt.hashSync(req.body.password, 8);
       }

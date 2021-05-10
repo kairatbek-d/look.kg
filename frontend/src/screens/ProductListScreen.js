@@ -64,6 +64,9 @@ export default function ProductListScreen(props) {
       dispatch(deleteProduct(product._id));
     }
   };
+  const createInstaHandler = () => {
+    props.history.push('/instagram');
+  };
   const createHandler = () => {
     dispatch(createProduct());
   };
@@ -71,9 +74,14 @@ export default function ProductListScreen(props) {
     <div>
       <div className="row">
         <h1>Products</h1>
-        <button type="button" className="primary" onClick={createHandler}>
-          Create Product
-        </button>
+        <div>
+          <button type="button" className="primary" onClick={createInstaHandler}>
+            Create Product from Instagram
+          </button>
+          <button type="button" className="primary" onClick={createHandler}>
+            Create Product
+          </button>
+        </div>
       </div>
 
       {loadingDelete && <LoadingBox></LoadingBox>}

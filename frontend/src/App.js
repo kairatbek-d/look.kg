@@ -205,7 +205,12 @@ function App() {
           <Route path="/shipping" component={ShippingAddressScreen}></Route>
           <Route path="/payment" component={PaymentMethodScreen}></Route>
           <Route path="/placeorder" component={PlaceOrderScreen}></Route>
-          <Route path="/instagram" component={InstagramScreen}></Route>
+          <Route path="/instagram" component={InstagramScreen} exact></Route>
+          <Route
+            path="/instagram/pageNumber/:pageNumber/endCursor/:endCursor"
+            component={InstagramScreen}
+            exact
+          ></Route>
           <Route path="/order/:id" component={OrderScreen}></Route>
           <Route path="/orderhistory" component={OrderHistoryScreen}></Route>
           <Route
