@@ -33,8 +33,8 @@ export default function ProfileScreen(props) {
   useEffect(() => {
     if(successUpdate) {
       sellerMode ?
-      alert("You have successfully registered. You need to wait for your store to approve.")
-        : alert("Profile Updated Successfully")
+      alert("Сиз ийгиликтүү катталдыңыз. Дүкөнүңүз ырасталганга чейин күтүшүңүз керек.")
+        : alert("Профиль ийгиликтүү жаңыртылды")
       dispatch({ type: USER_UPDATE_PROFILE_RESET });
       dispatch({ type: USER_DETAILS_RESET });
     }
@@ -58,7 +58,7 @@ export default function ProfileScreen(props) {
   const submitHandler = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert('Password and Confirm Password Are Not Matched');
+      alert('Сырсөз жана ырастоо сырсөзү дал келген жок');
     } else {
       dispatch(
         updateUserProfile({
@@ -111,94 +111,84 @@ export default function ProfileScreen(props) {
           <>
             {loadingUpdate && <LoadingBox></LoadingBox>}
             {errorUpdate && (
-              <MessageBox variant="danger">Can not update your profile, check the fields and update!</MessageBox>
+              <MessageBox variant="danger">Профилиңизди жаңыланбады, талааларды текшерип, кайрадан жаңыртыңыз!</MessageBox>
             )}
             {((user && user.isSeller) || !sellerMode) && (
               <>
                 <div>
-                  <h1>User Profile</h1>
+                  <h1>Колдонуучунун профили</h1>
                 </div>
                 <div>
-                  <label htmlFor="name">Name</label>
+                  <label htmlFor="name">Аты</label>
                   <input
                     id="name"
                     type="text"
-                    placeholder="Enter name"
+                    placeholder="Атыңызды киргизиңиз"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
                   ></input>
                 </div>
                 <div>
-                  <label htmlFor="email">Email</label>
+                  <label htmlFor="email">Электрондук почта</label>
                   <input
                     id="email"
                     type="email"
-                    placeholder="Enter email"
+                    placeholder="Электрондук почтаңызды киргизиңиз"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
                   ></input>
                 </div>
                 <div>
-                  <label htmlFor="password">Password</label>
+                  <label htmlFor="password">Сырсөз</label>
                   <input
                     id="password"
                     type="password"
-                    placeholder="Enter password"
+                    placeholder="Сырсөздү киргизиңиз"
                     onChange={(e) => setPassword(e.target.value)}
                   ></input>
                 </div>
                 <div>
-                  <label htmlFor="confirmPassword">confirm Password</label>
+                  <label htmlFor="confirmPassword">Сырсөздү ыраста</label>
                   <input
                     id="confirmPassword"
                     type="password"
-                    placeholder="Enter confirm password"
+                    placeholder="Сырсөздү киргизиңиз"
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   ></input>
                 </div>
               </>)}
             {((user && user.isSeller) || sellerMode) && (
               <>
-                <h2>Seller Profile</h2>
+                <h2>Сатуучунун профили</h2>
                 <div>
-                  <label htmlFor="sellerName">Seller Name</label>
+                  <label htmlFor="sellerName">Дүкөндүн аты</label>
                   <input
                     id="sellerName"
                     type="text"
-                    placeholder="Enter Seller Name"
+                    placeholder="Дүкөндүн атын киргизиңиз"
                     value={sellerName}
                     onChange={(e) => setSellerName(e.target.value)}
                   ></input>
                 </div>
                 <div>
-                  <label htmlFor="sellerLogo">Seller Logo</label>
+                  <label htmlFor="sellerLogo">Дүкөндүн логотиби</label>
                   <input
                     id="sellerLogo"
                     type="text"
-                    placeholder="Choose seller logo"
+                    placeholder="Дүкөндүн логотибин тандаңыз"
                     value={sellerLogo}
                     onChange={(e) => setSellerLogo(e.target.value)}
                     disabled
                   ></input>
                 </div>
                 <div>
-                  <label htmlFor="email">Instagram</label>
-                  <input
-                    id="instagram"
-                    type="text"
-                    placeholder="Enter instagram username"
-                    value={instagram}
-                    onChange={(e) => setInstagram(e.target.value)}
-                  ></input>
-                </div>
-                <div>
-                  <label htmlFor="imageFile">Image File</label>
+                  <label htmlFor="imageFile">Сүрөт файлы</label>
                   <input
                     type="file"
                     id="imageFile"
-                    label="Choose Image"
+                    label="Сүрөттү тандаңыз"
                     onChange={uploadFileHandler}
                   ></input>
                   {loadingUpload && <LoadingBox></LoadingBox>}
@@ -206,12 +196,35 @@ export default function ProfileScreen(props) {
                     <MessageBox variant="danger">{errorUpload}</MessageBox>
                   )}
                 </div>
+                {userInfo.isSeller || !instagram ?
                 <div>
-                  <label htmlFor="sellerDescription">Seller Description</label>
+                  <label htmlFor="email">Instagram аккаунту</label>
+                  <input
+                    id="instagram"
+                    type="text"
+                    placeholder="Инстаграм аккаунтун киргизиңиз"
+                    value={instagram}
+                    onChange={(e) => setInstagram(e.target.value)}
+                    disabled
+                  ></input>
+                </div> :
+                <div>
+                  <label htmlFor="email">Instagram аккаунту</label>
+                  <input
+                    id="instagram"
+                    type="text"
+                    placeholder="Инстаграм аккаунтун киргизиңиз"
+                    value={instagram}
+                    onChange={(e) => setInstagram(e.target.value)}
+                  ></input>
+                </div>
+                }
+                <div>
+                  <label htmlFor="sellerDescription">Дүкөндүн сүрөттөмөсү</label>
                   <input
                     id="sellerDescription"
                     type="text"
-                    placeholder="Enter Seller Description"
+                    placeholder="Дүкөндүн сүрөттөмөсүн киргизиңиз"
                     value={sellerDescription}
                     onChange={(e) => setSellerDescription(e.target.value)}
                   ></input>
@@ -223,13 +236,13 @@ export default function ProfileScreen(props) {
                 <>
                   <label />
                   <button className="primary" type="submit">
-                    Register
+                    Каттоо
                   </button>
                 </> :
                 <>
                   <label />
                   <button className="primary" type="submit">
-                    Update
+                    Жаңыртуу
                   </button>
                 </>
               }

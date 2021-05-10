@@ -61,7 +61,7 @@ export default function ProductScreen(props) {
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
         <div>
-          <Link to="/">Back to result</Link>
+          <Link to="/">Артка кайт</Link>
           <div className="row top">
             <div className="col-2">
               {/* <Magnifier src={product.image} className="large" zoomFactor="1" /> */}
@@ -78,9 +78,9 @@ export default function ProductScreen(props) {
                     numReviews={product.numReviews}
                   ></Rating>
                 </li>
-                <li>Price : ${product.price}</li>
+                <li>Баасы : {product.price} сом</li>
                 <li>
-                  Description:
+                  Сүрөттөмө:
                   <p>{product.description}</p>
                 </li>
               </ul>
@@ -90,18 +90,18 @@ export default function ProductScreen(props) {
                 <ul>
                   <li>
                     <div className="row">
-                      <div>Price</div>
+                      <div>Баасы</div>
                       <div className="price">${product.price}</div>
                     </div>
                   </li>
                   <li>
                     <div className="row">
-                      <div>Status</div>
+                      <div>Статус</div>
                       <div>
                         {product.countInStock > 0 ? (
-                          <span className="success">In Stock</span>
+                          <span className="success">Кампада</span>
                         ) : (
-                          <span className="danger">Unavailable</span>
+                          <span className="danger">Жеткиликсиз</span>
                         )}
                       </div>
                     </div>
@@ -110,7 +110,7 @@ export default function ProductScreen(props) {
                     <>
                       <li>
                         <div className="row">
-                          <div>Qty</div>
+                          <div>Саны</div>
                           <div>
                             <select
                               value={qty}
@@ -132,7 +132,7 @@ export default function ProductScreen(props) {
                           onClick={addToCartHandler}
                           className="primary block"
                         >
-                          Add to Cart
+                          Себетке кош
                         </button>
                       </li>
                     </>
@@ -142,9 +142,9 @@ export default function ProductScreen(props) {
             </div>
           </div>
           <div>
-            <h2 id="reviews">Reviews</h2>
+            <h2 id="reviews">сын-пикир</h2>
             {product.reviews.length === 0 && (
-              <MessageBox>There is no review</MessageBox>
+              <MessageBox>Сын-пикир жок</MessageBox>
             )}
             <ul>
               {product.reviews.map((review) => (
@@ -159,25 +159,25 @@ export default function ProductScreen(props) {
                 {userInfo ? (
                   <form className="form" onSubmit={submitHandler}>
                     <div>
-                      <h2>Write a customer review</h2>
+                      <h2>Кардарлардын сын-пикирин жазыңыз</h2>
                     </div>
                     <div>
-                      <label htmlFor="rating">Rating</label>
+                      <label htmlFor="rating">Рейтинг</label>
                       <select
                         id="rating"
                         value={rating}
                         onChange={(e) => setRating(e.target.value)}
                       >
-                        <option value="">Select...</option>
-                        <option value="1">1- Poor</option>
-                        <option value="2">2- Fair</option>
-                        <option value="3">3- Good</option>
-                        <option value="4">4- Very good</option>
-                        <option value="5">5- Excelent</option>
+                        <option value="">Тандаңыз...</option>
+                        <option value="1">1- Начар</option>
+                        <option value="2">2- Канааттандырарлык</option>
+                        <option value="3">3- Орто</option>
+                        <option value="4">4- Жакшы</option>
+                        <option value="5">5- Эң жакшы</option>
                       </select>
                     </div>
                     <div>
-                      <label htmlFor="comment">Comment</label>
+                      <label htmlFor="comment">Комментарий</label>
                       <textarea
                         id="comment"
                         value={comment}
@@ -187,7 +187,7 @@ export default function ProductScreen(props) {
                     <div>
                       <label />
                       <button className="primary" type="submit">
-                        Submit
+                        Жөнөтүү
                       </button>
                     </div>
                     <div>
@@ -201,7 +201,7 @@ export default function ProductScreen(props) {
                   </form>
                 ) : (
                   <MessageBox>
-                    Please <Link to="/signin">Sign In</Link> to write a review
+                    Please <Link to="/signin">Кирүү</Link> сын-пикир жазуу
                   </MessageBox>
                 )}
               </li>

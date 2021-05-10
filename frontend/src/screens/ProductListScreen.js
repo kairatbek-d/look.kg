@@ -60,7 +60,7 @@ export default function ProductListScreen(props) {
   ]);
 
   const deleteHandler = (product) => {
-    if (window.confirm('Are you sure to delete?')) {
+    if (window.confirm('Чын эле жок кыласызбы?')) {
       dispatch(deleteProduct(product._id));
     }
   };
@@ -73,13 +73,13 @@ export default function ProductListScreen(props) {
   return (
     <div>
       <div className="row">
-        <h1>Products</h1>
+        <h1>Өнүмдөр</h1>
         <div>
           <button type="button" className="primary" onClick={createInstaHandler}>
-            Create Product from Instagram
+            Инстаграмдан продукт түзүү
           </button>
           <button type="button" className="primary" onClick={createHandler}>
-            Create Product
+            Продукт түзүү
           </button>
         </div>
       </div>
@@ -99,11 +99,11 @@ export default function ProductListScreen(props) {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>NAME</th>
-                <th>PRICE</th>
-                <th>CATEGORY</th>
-                <th>BRAND</th>
-                <th>ACTIONS</th>
+                <th>АТЫ</th>
+                <th>БААСЫ</th>
+                <th>КАТЕГОРИЯСЫ</th>
+                <th>БРЕНД</th>
+                <th>АРАКЕТТЕР</th>
               </tr>
             </thead>
             <tbody>
@@ -122,14 +122,14 @@ export default function ProductListScreen(props) {
                         props.history.push(`/product/${product._id}/edit`)
                       }
                     >
-                      Edit
+                      Түзөтүү
                     </button>
                     <button
                       type="button"
                       className="small"
                       onClick={() => deleteHandler(product)}
                     >
-                      Delete
+                      Жок кылуу
                     </button>
                   </td>
                 </tr>

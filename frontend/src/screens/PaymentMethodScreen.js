@@ -21,7 +21,7 @@ export default function PaymentMethodScreen(props) {
       <CheckoutSteps step1 step2 step3></CheckoutSteps>
       <form className="form" onSubmit={submitHandler}>
         <div>
-          <h1>Payment Method</h1>
+          <h1>Төлөө ыкмасы</h1>
         </div>
         <div>
           <div>
@@ -47,7 +47,7 @@ export default function PaymentMethodScreen(props) {
               required
               onChange={(e) => setPaymentMethod(e.target.value)}
             ></input>
-            <label htmlFor="cash">Наличие</label>
+            <label htmlFor="cash">Накталай акча</label>
           </div>
         </div>
         <div>
@@ -105,7 +105,7 @@ export default function PaymentMethodScreen(props) {
         <div>
           <label />
           <button className="primary" type="submit">
-            Continue
+            Улантуу
           </button>
         </div>
       </form>

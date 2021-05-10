@@ -20,7 +20,8 @@ export default function InstagramProduct({product}) {
   const createHandler = () => {
     dispatch(createProduct({
       image: product.imageLink,
-      description: product.text
+      description: product.text,
+      price: product.text.match(/ЦЕНА: [0-9,]+(\.[0-9]{2})?/g)[0].match(/[0-9,]+(\.[0-9]{2})?/g)[0]
     }));
   };
 
@@ -40,9 +41,12 @@ export default function InstagramProduct({product}) {
         <div>
             {product.text}
         </div>
+        <div>
+            {product.text.match(/ЦЕНА: [0-9,]+(\.[0-9]{2})?/g)[0]}
+        </div>
         <div>{product.likes}</div>
         <button type="button" className="primary" onClick={createHandler}>
-          Choose product
+          Продуктаны тандаңыз
         </button>
       </div>
     </div>

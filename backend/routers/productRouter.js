@@ -161,7 +161,7 @@ productRouter.post(
     const product = new Product({
       name: 'sample name ' + Date.now(),
       image: req.body.product.image || '/images/p1.jpg',
-      price: 0,
+      price: req.body.product.price || 0,
       category: 'sample category',
       brand: 'sample brand',
       countInStock: 0,

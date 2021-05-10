@@ -24,14 +24,14 @@ export default function InstagramScreen() {
 
   return (
     <div>
-      <h2>Featured Products</h2>
+      <h2>Өзгөчөлөнгөн продукталар</h2>
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
         <>
-          {products.length === 0 && <MessageBox>No Product Found</MessageBox>}
+          {products.length === 0 && <MessageBox>Эч кандай товар табылган жок</MessageBox>}
           <div className="row center">
             {products.map((product) => (
               <InstagramProduct key={product.id} product={product}></InstagramProduct>

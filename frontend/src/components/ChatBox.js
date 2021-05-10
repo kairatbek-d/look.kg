@@ -91,7 +91,7 @@ export default function ChatBox(props) {
                 type="text"
                 placeholder="type message"
               />
-              <button type="submit">Send</button>
+              <button type="submit">Жөнөтүү</button>
             </form>
           </div>
         </div>

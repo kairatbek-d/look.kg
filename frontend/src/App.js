@@ -61,12 +61,12 @@ function App() {
           {!userInfo ?
           <div className="header-top row end">
             <Link to="/registerSeller">
-              Sell on Look
+              Look менен сат
             </Link>
           </div> : !userInfo.isSeller ? 
           <div className="header-top row end">
             <Link to="/registerCompany">
-              Sell on Look
+              Look менен сат
             </Link>
           </div>: null}
           <div className="header-body row">
@@ -91,7 +91,7 @@ function App() {
             </div>
             <div>
               <Link to="/cart">
-                Cart
+                Себет
                 {cartItems.length > 0 && (
                   <span className="badge">{cartItems.length}</span>
                 )}
@@ -103,32 +103,32 @@ function App() {
                   </Link>
                   <ul className="dropdown-content">
                     <li>
-                      <Link to="/profile">User Profile</Link>
+                      <Link to="/profile">Профили</Link>
                     </li>
                     <li>
-                      <Link to="/orderhistory">Order History</Link>
+                      <Link to="/orderhistory">Буюртмалары</Link>
                     </li>
                     <li>
                       <Link to="#signout" onClick={signoutHandler}>
-                        Sign Out
+                        Чыгуу
                       </Link>
                     </li>
                   </ul>
                 </div>
               ) : (
-                <Link to="/signin">Sign In</Link>
+                <Link to="/signin">Кирүү</Link>
               )}
               {userInfo && userInfo.isSeller && (
                 <div className="dropdown">
                   <Link to="#admin">
-                    Seller <i className="fa fa-caret-down"></i>
+                    Сатуучу <i className="fa fa-caret-down"></i>
                   </Link>
                   <ul className="dropdown-content">
                     <li>
-                      <Link to="/productlist/seller">Products</Link>
+                      <Link to="/productlist/seller">Продукталар</Link>
                     </li>
                     <li>
-                      <Link to="/orderlist/seller">Orders</Link>
+                      <Link to="/orderlist/seller">Буюртмалар</Link>
                     </li>
                   </ul>
                 </div>
@@ -136,23 +136,23 @@ function App() {
               {userInfo && userInfo.isAdmin && (
                 <div className="dropdown">
                   <Link to="#admin">
-                    Admin <i className="fa fa-caret-down"></i>
+                    Админ <i className="fa fa-caret-down"></i>
                   </Link>
                   <ul className="dropdown-content">
                     <li>
-                      <Link to="/dashboard">Dashboard</Link>
+                      <Link to="/dashboard">Такта</Link>
                     </li>
                     <li>
-                      <Link to="/productlist">Products</Link>
+                      <Link to="/productlist">Өнүмдөр</Link>
                     </li>
                     <li>
-                      <Link to="/orderlist">Orders</Link>
+                      <Link to="/orderlist">Заказдар</Link>
                     </li>
                     <li>
-                      <Link to="/userlist">Users</Link>
+                      <Link to="/userlist">Колдонуучулар</Link>
                     </li>
                     <li>
-                      <Link to="/support">Support</Link>
+                      <Link to="/support">Колдоо</Link>
                     </li>
                   </ul>
                 </div>
@@ -163,7 +163,7 @@ function App() {
         <aside className={sidebarIsOpen ? 'open' : ''}>
           <ul className="categories">
             <li>
-              <strong>Categories</strong>
+              <strong>Категориялар</strong>
               <button
                 onClick={() => setSidebarIsOpen(false)}
                 className="close-sidebar"
@@ -294,7 +294,7 @@ function App() {
         </main>
         <footer className="row center">
           {userInfo && !userInfo.isAdmin && <ChatBox userInfo={userInfo} />}
-          <div>All right reserved</div>{' '}
+          <div>Бардык укуктар корголгон</div>{' '}
         </footer>
       </div>
     </BrowserRouter>

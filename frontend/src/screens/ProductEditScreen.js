@@ -91,7 +91,7 @@ export default function ProductEditScreen(props) {
     <div>
       <form className="form" onSubmit={submitHandler}>
         <div>
-          <h1>Edit Product "{name}"</h1>
+          <h1>Продуктаны түзөтүү "{name}"</h1>
         </div>
         {loadingUpdate && <LoadingBox></LoadingBox>}
         {errorUpdate && <MessageBox variant="danger">{errorUpdate}</MessageBox>}
@@ -102,42 +102,42 @@ export default function ProductEditScreen(props) {
         ) : (
           <>
             <div>
-              <label htmlFor="name">Name</label>
+              <label htmlFor="name">Аты</label>
               <input
                 id="name"
                 type="text"
-                placeholder="Enter name"
+                placeholder="Атын киргизиңиз"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               ></input>
             </div>
             <div>
-              <label htmlFor="price">Price</label>
+              <label htmlFor="price">Баасы</label>
               <input
                 id="price"
                 type="text"
-                placeholder="Enter price"
+                placeholder="Баасын киргизиңиз"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
               ></input>
             </div>
             <div>
-              <label htmlFor="image">Image</label>
+              <label htmlFor="image">Сүрөт</label>
               <input
                 id="image"
                 type="text"
-                placeholder="Enter image"
+                placeholder="Сүрөтүн тандаңыз"
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
                 disabled
               ></input>
             </div>
             <div>
-              <label htmlFor="imageFile">Image File</label>
+              <label htmlFor="imageFile">Сүрөт файлы</label>
               <input
                 type="file"
                 id="imageFile"
-                label="Choose Image"
+                label="Сүрөттү тандаңыз"
                 onChange={uploadFileHandler}
               ></input>
               {loadingUpload && <LoadingBox></LoadingBox>}
@@ -146,42 +146,42 @@ export default function ProductEditScreen(props) {
               )}
             </div>
             <div>
-              <label htmlFor="category">Category</label>
+              <label htmlFor="category">Категория</label>
               <input
                 id="category"
                 type="text"
-                placeholder="Enter category"
+                placeholder="Категорияны киргизиңиз"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               ></input>
             </div>
             <div>
-              <label htmlFor="brand">Brand</label>
+              <label htmlFor="brand">Бренд</label>
               <input
                 id="brand"
                 type="text"
-                placeholder="Enter brand"
+                placeholder="Брендди киргизиңиз"
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
               ></input>
             </div>
             <div>
-              <label htmlFor="countInStock">Count In Stock</label>
+              <label htmlFor="countInStock">Кампадагы саны</label>
               <input
                 id="countInStock"
                 type="text"
-                placeholder="Enter countInStock"
+                placeholder="Кампада санын киргизиңиз"
                 value={countInStock}
                 onChange={(e) => setCountInStock(e.target.value)}
               ></input>
             </div>
             <div>
-              <label htmlFor="description">Description</label>
+              <label htmlFor="description">Сүрөттөмө</label>
               <textarea
                 id="description"
                 rows="3"
                 type="text"
-                placeholder="Enter description"
+                placeholder="Сүрөттөмөсүн киргизиңиз"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               ></textarea>
@@ -189,7 +189,7 @@ export default function ProductEditScreen(props) {
             <div>
               <label></label>
               <button className="primary" type="submit">
-                Update
+                Жаңыртуу
               </button>
             </div>
           </>

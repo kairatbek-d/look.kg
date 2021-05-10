@@ -63,23 +63,23 @@ export default function SearchScreen(props) {
           <div>{products.length} Results</div>
         )}
         <div>
-          Sort by{' '}
+          Иреттөө{' '}
           <select
             value={order}
             onChange={(e) => {
               props.history.push(getFilterUrl({ order: e.target.value }));
             }}
           >
-            <option value="newest">Newest Arrivals</option>
-            <option value="lowest">Price: Low to High</option>
-            <option value="highest">Price: High to Low</option>
-            <option value="toprated">Avg. Customer Reviews</option>
+            <option value="newest">Жаңы келгендер</option>
+            <option value="lowest">Баасы: Төмөндөн жогоруга</option>
+            <option value="highest">Баасы: Бийиктен төмөнгө</option>
+            <option value="toprated">Орт. Кардарлардын сын-пикирлери</option>
           </select>
         </div>
       </div>
       <div className="row top">
         <div className="col-1">
-          <h3>Department</h3>
+          <h3>Бөлүм</h3>
           <div>
             {loadingCategories ? (
               <LoadingBox></LoadingBox>
@@ -92,7 +92,7 @@ export default function SearchScreen(props) {
                     className={'all' === category ? 'active' : ''}
                     to={getFilterUrl({ category: 'all' })}
                   >
-                    Any
+                    Каалаган
                   </Link>
                 </li>
                 {categories.map((c) => (
@@ -109,7 +109,7 @@ export default function SearchScreen(props) {
             )}
           </div>
           <div>
-            <h3>Price</h3>
+            <h3>Баасы</h3>
             <ul>
               {prices.map((p) => (
                 <li key={p.name}>
@@ -126,7 +126,7 @@ export default function SearchScreen(props) {
             </ul>
           </div>
           <div>
-            <h3>Avg. Customer Review</h3>
+            <h3>Орт. Кардарлардын сын-пикирлери</h3>
             <ul>
               {ratings.map((r) => (
                 <li key={r.name}>
@@ -134,7 +134,7 @@ export default function SearchScreen(props) {
                     to={getFilterUrl({ rating: r.rating })}
                     className={`${r.rating}` === `${rating}` ? 'active' : ''}
                   >
-                    <Rating caption={' & up'} rating={r.rating}></Rating>
+                    <Rating caption={' & өйдө'} rating={r.rating}></Rating>
                   </Link>
                 </li>
               ))}
@@ -149,7 +149,7 @@ export default function SearchScreen(props) {
           ) : (
             <>
               {products.length === 0 && (
-                <MessageBox>No Product Found</MessageBox>
+                <MessageBox>Товар табылган жок</MessageBox>
               )}
               <div className="row center">
                 {products.map((product) => (
