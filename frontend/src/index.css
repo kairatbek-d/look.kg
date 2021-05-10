@@ -213,9 +213,6 @@ img.large {
   background-color: #f8f8f8;
   border-radius: 0.5rem;
   margin: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 .card-body {
   max-width: 29rem;

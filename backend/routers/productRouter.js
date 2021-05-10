@@ -129,7 +129,7 @@ productRouter.get(
       }
       instagramProducts.push({
         id: product.node.id,
-        imageLink: imageLink,
+        imageLink: `/uploads/${user._id}/instagram/${product.node.id}.jpg`,
         likes: product.node.edge_media_preview_like.count,
         text: product.node.edge_media_to_caption.edges[0].node.text
       });

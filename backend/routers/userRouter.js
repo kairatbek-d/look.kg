@@ -83,33 +83,36 @@ userRouter.put(
   '/profile',
   isAuth,
   expressAsyncHandler(async (req, res) => {
-    const user = await User.findById(req.user._id);
-    if (user) {
-      user.name = req.body.name || user.name;
-      user.email = req.body.email || user.email;
-      user.seller.name = req.body.sellerName || user.seller.name;
-      user.seller.logo = req.body.sellerLogo || user.seller.logo;
-      user.seller.description = req.body.sellerDescription || user.seller.description;
-
-      if(req.body.instagram) {
-        user.seller.instagram.username = req.body.instagram;
-        const { data } = await Axios.get(`https://www.instagram.com/${req.body.instagram}/?__a=1`);
-        user.seller.instagram.id = data.graphql.user.id;
-      }
-
-      if (req.body.password) {
-        user.password = bcrypt.hashSync(req.body.password, 8);
-      }
-      const updatedUser = await user.save();
-      res.send({
-        _id: updatedUser._id,
-        name: updatedUser.name,
-        email: updatedUser.email,
-        isAdmin: updatedUser.isAdmin,
-        isSeller: user.isSeller,
-        token: generateToken(updatedUser),
-      });
+    var data;
+    if(req.body.instagram) {
+      data = await Axios.get(`https://www.instagram.com/${req.body.instagram}/?__a=1`);
     }
+      const user = await User.findById(req.user._id);
+      if (user) {
+        user.name = req.body.name || user.name;
+        user.email = req.body.email || user.email;
+        user.seller.name = req.body.sellerName || user.seller.name;
+        user.seller.logo = req.body.sellerLogo || user.seller.logo;
+        user.seller.description = req.body.sellerDescription || user.seller.description;
+
+        if(req.body.instagram !== user.seller.instagram.username) {
+          user.seller.instagram.username = req.body.instagram;
+          user.seller.instagram.id = data.data.graphql.user.id;
+        }
+
+        if (req.body.password) {
+          user.password = bcrypt.hashSync(req.body.password, 8);
+        }
+        const updatedUser = await user.save();
+        res.send({
+          _id: updatedUser._id,
+          name: updatedUser.name,
+          email: updatedUser.email,
+          isAdmin: updatedUser.isAdmin,
+          isSeller: user.isSeller,
+          token: generateToken(updatedUser),
+        });
+      }
   })
 );
 
