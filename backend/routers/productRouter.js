@@ -106,7 +106,7 @@ productRouter.get(
 productRouter.get(
   '/insta',
   expressAsyncHandler(async (req, res) => {
-    const { data } = await Axios.get(`https://www.instagram.com/kairatbek_d/?__a=1`);
+    const { data } = await Axios.get(`https://www.instagram.com/kairatbek_d/channel/?__a=1`);
     res.send(data);
   })
 );
