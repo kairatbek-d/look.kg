@@ -1,0 +1,7 @@
+PORT=5001
+JWT_SECRET=somethingsecret
+accessKeyId=accessKeyId
+secretAccessKey=secretAccessKey
+MONGODB_URL=mongodb+srv://admin:12345@cluster0.hkdog.mongodb.net
+MAILGUN_API_KEY=0de4ad868b5317e1624a70c8137480bf-2a9a428a-7e28b51e
+MAILGUN_DOMIAN=sandboxfafe608de1264fde8c3e6b2f3906c6d1.mailgun.org
