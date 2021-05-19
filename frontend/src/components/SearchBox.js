@@ -10,12 +10,13 @@ export default function SearchBox(props) {
     <form className="search" onSubmit={submitHandler}>
       <div className="row">
         <input
+          placeholder="Өнүмдү, категорияны же брендди жазыңыз."
           type="text"
           name="q"
           id="q"
           onChange={(e) => setName(e.target.value)}
         ></input>
-        <button className="primary" type="submit">
+        <button type="submit">
           <i className="fa fa-search"></i>
         </button>
       </div>

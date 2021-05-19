@@ -9,7 +9,7 @@ export default function PaymentMethodScreen(props) {
   if (!shippingAddress.address) {
     props.history.push('/shipping');
   }
-  const [paymentMethod, setPaymentMethod] = useState('PayPal');
+  const [paymentMethod, setPaymentMethod] = useState('Visa Card');
   const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();
@@ -34,7 +34,7 @@ export default function PaymentMethodScreen(props) {
               defaultChecked
               onChange={(e) => setPaymentMethod(e.target.value)}
             ></input>
-            <label htmlFor="visa">Visa</label>
+            <label htmlFor="visa">Visa Card</label>
           </div>
         </div>
         <div>
@@ -42,7 +42,7 @@ export default function PaymentMethodScreen(props) {
             <input
               type="radio"
               id="cash"
-              value="Наличие"
+              value="Накталай акча"
               name="paymentMethod"
               required
               onChange={(e) => setPaymentMethod(e.target.value)}

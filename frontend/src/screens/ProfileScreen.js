@@ -168,6 +168,7 @@ export default function ProfileScreen(props) {
                     placeholder="Дүкөндүн атын киргизиңиз"
                     value={sellerName}
                     onChange={(e) => setSellerName(e.target.value)}
+                    required
                   ></input>
                 </div>
                 <div>

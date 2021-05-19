@@ -66,7 +66,7 @@ export default function CartScreen(props) {
                       ))}
                     </select>
                   </div>
-                  <div>${item.price}</div>
+                  <div>{item.price} сом</div>
                   <div>
                     <button
                       type="button"
@@ -86,8 +86,8 @@ export default function CartScreen(props) {
           <ul>
             <li>
               <h2>
-                Бардыгы болуп ({cartItems.reduce((a, c) => a + c.qty, 0)} буюмдар) : $
-                {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
+                Бардыгы болуп ({cartItems.reduce((a, c) => a + c.qty, 0)} буюмдар) : 
+                {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}с
               </h2>
             </li>
             <li>

@@ -86,11 +86,10 @@ userRouter.put(
       if (user) {
         user.name = req.body.name || user.name;
         user.email = req.body.email || user.email;
-        user.seller.name = req.body.sellerName || user.seller.name;
-        user.seller.logo = `data:image/png;base64,${Buffer.from(user.seller.notLogo.data).toString('base64')}` || user.seller.logo;
-        user.seller.description = req.body.sellerDescription || user.seller.description;
-
-        if(req.body.instagram !== user.seller.instagram.username) {
+        if(req.body.sellerName) {
+          user.seller.name = req.body.sellerName || user.seller.name;
+          user.seller.logo = `data:image/png;base64,${Buffer.from(user.seller.notLogo.data).toString('base64')}` || user.seller.logo;
+          user.seller.description = req.body.sellerDescription || user.seller.description;
           user.seller.instagram.username = req.body.instagram;
         }
 
@@ -152,9 +151,9 @@ userRouter.put(
       user.isAdmin = Boolean(req.body.isAdmin);
       // user.isAdmin = req.body.isAdmin || user.isAdmin;
       const updatedUser = await user.save();
-      res.send({ message: 'User Updated', user: updatedUser });
+      res.send({ message: 'Колдонуучу жаңыланды', user: updatedUser });
     } else {
-      res.status(404).send({ message: 'User Not Found' });
+      res.status(404).send({ message: 'Колдонуучу табылган жок' });
     }
   })
 );
