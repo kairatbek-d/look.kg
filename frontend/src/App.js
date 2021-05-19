@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Link, Route } from 'react-router-dom';
 import { signout } from './actions/userActions';
@@ -34,7 +34,6 @@ import ChatBox from './components/ChatBox';
 function App() {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
-  const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
 
@@ -70,13 +69,6 @@ function App() {
           </div>: null}
           <div className="header-body row">
             <div>
-              <button
-                type="button"
-                className="open-sidebar"
-                onClick={() => setSidebarIsOpen(true)}
-              >
-                <i className="fa fa-bars"></i>
-              </button>
               <Link className="brand" to="/">
                 Look.kg
               </Link>
@@ -158,37 +150,26 @@ function App() {
               )}
             </div>
           </div>
+          <div className="header-bottom row">
+            <ul className="categories">
+              {loadingCategories ? (
+                <LoadingBox></LoadingBox>
+              ) : errorCategories ? (
+                <MessageBox variant="danger">{errorCategories}</MessageBox>
+              ) : (
+                categories.map((c) => (
+                  <li key={c}>
+                    <Link
+                      to={`/search/category/${c}`}
+                    >
+                      {c}
+                    </Link>
+                  </li>
+                ))
+              )}
+            </ul>
+          </div>
         </header>
-        <aside className={sidebarIsOpen ? 'open' : ''}>
-          <ul className="categories">
-            <li>
-              <strong>Категориялар</strong>
-              <button
-                onClick={() => setSidebarIsOpen(false)}
-                className="close-sidebar"
-                type="button"
-              >
-                <i className="fa fa-close"></i>
-              </button>
-            </li>
-            {loadingCategories ? (
-              <LoadingBox></LoadingBox>
-            ) : errorCategories ? (
-              <MessageBox variant="danger">{errorCategories}</MessageBox>
-            ) : (
-              categories.map((c) => (
-                <li key={c}>
-                  <Link
-                    to={`/search/category/${c}`}
-                    onClick={() => setSidebarIsOpen(false)}
-                  >
-                    {c}
-                  </Link>
-                </li>
-              ))
-            )}
-          </ul>
-        </aside>
         <main>
           <Route path="/seller/:id" component={SellerScreen}></Route>
           <Route path="/cart/:id?" component={CartScreen}></Route>

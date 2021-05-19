@@ -24,7 +24,7 @@ export default function RegisterScreen(props) {
   const submitHandler = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert('Password and confirm password are not match');
+      alert('Сырсөз менен ырасталган сырсөз дал келген жок.');
     } else {
       dispatch(register(name, email, password));
     }
@@ -40,46 +40,46 @@ export default function RegisterScreen(props) {
     <div>
       <form className="form" onSubmit={submitHandler}>
         <div>
-          <h1>Create Account</h1>
+          <h1>Аккаунтту түзүү</h1>
         </div>
         {loading && <LoadingBox></LoadingBox>}
         {error && <MessageBox variant="danger">{error}</MessageBox>}
         <div>
-          <label htmlFor="name">Name</label>
+          <label htmlFor="name">Аты</label>
           <input
             type="text"
             id="name"
-            placeholder="Enter name"
+            placeholder="Атыңызды киргизиңиз"
             required
             onChange={(e) => setName(e.target.value)}
           ></input>
         </div>
         <div>
-          <label htmlFor="email">Email address</label>
+          <label htmlFor="email">Электрондук почта</label>
           <input
             type="email"
             id="email"
-            placeholder="Enter email"
+            placeholder="Электрондук почтаңызды киргизиңиз"
             required
             onChange={(e) => setEmail(e.target.value)}
           ></input>
         </div>
         <div>
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">Сырсөз</label>
           <input
             type="password"
             id="password"
-            placeholder="Enter password"
+            placeholder="Сырсөздү киргизиңиз"
             required
             onChange={(e) => setPassword(e.target.value)}
           ></input>
         </div>
         <div>
-          <label htmlFor="confirmPassword">Confirm Password</label>
+          <label htmlFor="confirmPassword">Сырсөздү ыраста</label>
           <input
             type="password"
             id="confirmPassword"
-            placeholder="Enter confirm password"
+            placeholder="Сырсөздү киргизиңиз"
             required
             onChange={(e) => setConfirmPassword(e.target.value)}
           ></input>
@@ -87,14 +87,14 @@ export default function RegisterScreen(props) {
         <div>
           <label />
           <button className="primary" type="submit">
-            Register
+            Каттоо
           </button>
         </div>
         <div>
           <label />
           <div>
-            Already have an account?{' '}
-            <Link to={`/signin?redirect=${redirect}`}>Sign-In</Link>
+            Аккаунтуңуз барбы?{' '}
+            <Link to={`/signin?redirect=${redirect}`}>Кирүү</Link>
           </div>
         </div>
       </form>
