@@ -17,6 +17,7 @@ export default function ProfileScreen(props) {
   const [sellerName, setSellerName] = useState('');
   const [sellerLogo, setSellerLogo] = useState('');
   const [instagram, setInstagram] = useState('');
+  const [payMethod, setPayMethod] = useState({});
   const [sellerDescription, setSellerDescription] = useState('');
 
   const userSignin = useSelector((state) => state.userSignin);
@@ -29,6 +30,35 @@ export default function ProfileScreen(props) {
     error: errorUpdate,
     loading: loadingUpdate,
   } = userUpdateProfile;
+
+  function getPayMethod(value, type) {
+    if(type === "visaCard") {
+      setPayMethod(payMethod => ({
+        ...payMethod,
+        visaCard: value
+      }))
+    } else if(type === "elsom") {
+      setPayMethod(payMethod => ({
+        ...payMethod,
+        elsom: value
+      }))
+    } else if(type === "Omoney") {
+      setPayMethod(payMethod => ({
+        ...payMethod,
+        Omoney: value
+      }))
+    } else if(type === "balanceKg") {
+      setPayMethod(payMethod => ({
+        ...payMethod,
+        balanceKg: value
+      }))
+    } else if(type === "mBank") {
+      setPayMethod(payMethod => ({
+        ...payMethod,
+        mBank: value
+      }))
+    }
+  }
 
   useEffect(() => {
     if(successUpdate) {
@@ -48,6 +78,7 @@ export default function ProfileScreen(props) {
         setSellerName(user.seller.name);
         setSellerLogo(user.seller.logo);
         setSellerDescription(user.seller.description);
+        setPayMethod(user.seller.payMethod);
         if(user.seller.instagram) {
           setInstagram(user.seller.instagram.username);
         }
@@ -66,6 +97,7 @@ export default function ProfileScreen(props) {
           name,
           email,
           instagram,
+          payMethod,
           password,
           sellerName,
           sellerLogo,
@@ -236,6 +268,57 @@ export default function ProfileScreen(props) {
                     placeholder="Дүкөндүн сүрөттөмөсүн киргизиңиз"
                     value={sellerDescription}
                     onChange={(e) => setSellerDescription(e.target.value)}
+                  ></input>
+                </div>
+                <h2>Төлөө ыкмасы</h2>
+                <div>
+                  <label htmlFor="visaCard">Visa Card</label>
+                  <input
+                    id="visaCard"
+                    type="text"
+                    placeholder="Виза кард номерин киргизиңиз"
+                    value={payMethod && payMethod.visaCard}
+                    onChange={(e) => getPayMethod(e.target.value, "visaCard")}
+                  ></input>
+                </div>
+                <div>
+                  <label htmlFor="elsom">Элсом</label>
+                  <input
+                    id="elsom"
+                    type="text"
+                    placeholder="Элсом номерин киргизиңиз"
+                    value={payMethod && payMethod.elsom}
+                    onChange={(e) => getPayMethod(e.target.value, "elsom")}
+                  ></input>
+                </div>
+                <div>
+                  <label htmlFor="Omoney">О! Деньги</label>
+                  <input
+                    id="Omoney"
+                    type="text"
+                    placeholder="О! Деньги капчыгыңыздын номерин киргизиңиз"
+                    value={payMethod && payMethod.Omoney}
+                    onChange={(e) => getPayMethod(e.target.value, "Omoney")}
+                  ></input>
+                </div>
+                <div>
+                  <label htmlFor="balanceKg">Balance.kg</label>
+                  <input
+                    id="balanceKg"
+                    type="text"
+                    placeholder="Balance.kg капчыгыңыздын номерин киргизиңиз"
+                    value={payMethod && payMethod.balanceKg}
+                    onChange={(e) => getPayMethod(e.target.value, "balanceKg")}
+                  ></input>
+                </div>
+                <div>
+                  <label htmlFor="mBank">M Bank</label>
+                  <input
+                    id="mBank"
+                    type="text"
+                    placeholder="М Bank капчыгыңыздын номерин киргизиңиз"
+                    value={payMethod && payMethod.mBank}
+                    onChange={(e) => getPayMethod(e.target.value, "mBank")}
                   ></input>
                 </div>
               </>

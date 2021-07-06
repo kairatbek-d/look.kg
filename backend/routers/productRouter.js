@@ -93,12 +93,12 @@ productRouter.get(
   expressAsyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id).populate(
       'seller',
-      'seller.name seller.logo seller.rating seller.numReviews'
+      'seller.name seller.logo seller.rating seller.numReviews seller.payMethod'
     );
     if (product) {
       res.send(product);
     } else {
-      res.status(404).send({ message: 'Product Not Found' });
+      res.status(404).send({ message: 'Продукт табылган жок' });
     }
   })
 );
@@ -109,19 +109,19 @@ productRouter.post(
   isSellerOrAdmin,
   expressAsyncHandler(async (req, res) => {
     const product = new Product({
-      name: 'sample name ' + Date.now(),
+      name: 'үлгү аты ' + Date.now(),
       image: '/images/p1.jpg',
       price: 0,
-      category: 'sample category',
-      brand: 'sample brand',
+      category: 'үлгү категориясы',
+      brand: 'үлгү бренди',
       countInStock: 0,
       rating: 0,
       numReviews: 0,
-      description: 'sample description',
+      description: 'үлгү сүрөттөмөсү',
       seller: req.body.userInfo._id
     });
     const createdProduct = await product.save();
-    res.send({ message: 'Product Created', product: createdProduct });
+    res.send({ message: 'Продукт түзүлдү', product: createdProduct });
   })
 );
 productRouter.put(
@@ -140,9 +140,9 @@ productRouter.put(
       product.countInStock = req.body.countInStock;
       product.description = req.body.description;
       const updatedProduct = await product.save();
-      res.send({ message: 'Product Updated', product: updatedProduct });
+      res.send({ message: 'Продукт жаңыртылды', product: updatedProduct });
     } else {
-      res.status(404).send({ message: 'Product Not Found' });
+      res.status(404).send({ message: 'Продукт табылган жок' });
     }
   })
 );
@@ -164,9 +164,9 @@ productRouter.delete(
       const updatedUser = await user.save();
 
       const deleteProduct = await product.remove();
-      res.send({ message: 'Product Deleted', product: deleteProduct, seller: updatedUser });
+      res.send({ message: 'Продукт жок болду', product: deleteProduct, seller: updatedUser });
     } else {
-      res.status(404).send({ message: 'Product Not Found' });
+      res.status(404).send({ message: 'Продукт табылган жок' });
     }
   })
 );
@@ -181,7 +181,7 @@ productRouter.post(
       if (product.reviews.find((x) => x.name === req.user.name)) {
         return res
           .status(400)
-          .send({ message: 'You already submitted a review' });
+          .send({ message: 'Сиз сын-пикир калтыргансыз' });
       }
       const review = {
         name: req.user.name,
@@ -202,12 +202,12 @@ productRouter.post(
       const updatedUser = await user.save();
       
       res.status(201).send({
-        message: 'Review Created',
+        message: 'Сын-пикириңиз кошулду',
         review: updatedProduct.reviews[updatedProduct.reviews.length - 1],
         user: updatedUser
       });
     } else {
-      res.status(404).send({ message: 'Product Not Found' });
+      res.status(404).send({ message: 'Продукт табылган жок' });
     }
   })
 );

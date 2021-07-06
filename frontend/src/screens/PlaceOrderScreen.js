@@ -18,8 +18,8 @@ export default function PlaceOrderScreen(props) {
   cart.itemsPrice = toPrice(
     cart.cartItems.reduce((a, c) => a + c.qty * c.price, 0)
   );
-  cart.shippingPrice = cart.itemsPrice > 100 ? toPrice(0) : toPrice(10);
-  cart.taxPrice = toPrice(0.15 * cart.itemsPrice);
+  cart.shippingPrice = cart.itemsPrice > 1000 ? toPrice(0) : toPrice(100);
+  cart.taxPrice = toPrice(0 * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
   const dispatch = useDispatch();
   const placeOrderHandler = () => {
@@ -50,15 +50,15 @@ export default function PlaceOrderScreen(props) {
             </li>
             <li>
               <div className="card card-body">
-                <h2>Төлөм</h2>
+                <h2>Төлөө ыкмасы:</h2>
                 <p>
-                  <strong>Метод:</strong> {cart.paymentMethod}
+                  {cart.paymentMethod}
                 </p>
               </div>
             </li>
             <li>
               <div className="card card-body">
-                <h2>Буйрутма берилген буюмдар</h2>
+                <h2>Буйрутма берилген буюм(-дар)</h2>
                 <ul>
                   {cart.cartItems.map((item) => (
                     <li key={item.product}>
@@ -105,12 +105,12 @@ export default function PlaceOrderScreen(props) {
                   <div>{cart.shippingPrice.toFixed(2)} сом</div>
                 </div>
               </li>
-              <li>
+              {/* <li>
                 <div className="row">
                   <div>Салык</div>
                   <div>{cart.taxPrice.toFixed(2)} сом</div>
                 </div>
-              </li>
+              </li> */}
               <li>
                 <div className="row">
                   <div>
@@ -128,7 +128,9 @@ export default function PlaceOrderScreen(props) {
                   className="primary block"
                   disabled={cart.cartItems.length === 0}
                 >
-                  Жайгаштыруу
+                  {
+                    cart.paymentMethod.indexOf("Накталай акча") !== -1 ? "Буюртманы берүү" : "Төлөө жана буюртманы берүү"
+                  }
                 </button>
               </li>
               {loading && <LoadingBox></LoadingBox>}

@@ -30,7 +30,7 @@ export default function ProductScreen(props) {
 
   useEffect(() => {
     if (successReviewCreate) {
-      window.alert('Review Submitted Successfully');
+      window.alert('Сын-пикир ийгиликтүү катталды');
       setRating('');
       setComment('');
       dispatch({ type: PRODUCT_REVIEW_CREATE_RESET });
@@ -48,7 +48,7 @@ export default function ProductScreen(props) {
         createReview(productId, { rating, comment, name: userInfo.name })
       );
     } else {
-      alert('Please enter comment and rating');
+      alert('Комментарий жана рейтинг киргизиңиз!');
     }
   };
 
@@ -91,7 +91,7 @@ export default function ProductScreen(props) {
                   <li>
                     <div className="row">
                       <div>Баасы</div>
-                      <div className="price">${product.price}</div>
+                      <div className="price">{product.price} сом</div>
                     </div>
                   </li>
                   <li>

@@ -15,6 +15,13 @@ const userSchema = new mongoose.Schema(
       instagram: {
         username: String,
       },
+      payMethod: {
+        visaCard: String,
+        elsom: String,
+        Omoney: String,
+        balanceKg: String,
+        mBank: String
+      },
       rating: { type: Number, default: 0, required: true },
       numReviews: { type: Number, default: 0, required: true },
     },

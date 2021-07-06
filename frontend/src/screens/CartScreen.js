@@ -5,6 +5,9 @@ import { addToCart, removeFromCart } from '../actions/cartActions';
 import MessageBox from '../components/MessageBox';
 
 export default function CartScreen(props) {
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+  
   const productId = props.match.params.id;
   const qty = props.location.search
     ? Number(props.location.search.split('=')[1])
@@ -86,7 +89,7 @@ export default function CartScreen(props) {
           <ul>
             <li>
               <h2>
-                Бардыгы болуп ({cartItems.reduce((a, c) => a + c.qty, 0)} буюмдар) : 
+                Бардыгы болуп ({cartItems.reduce((a, c) => a + c.qty, 0)} буюм) : 
                 {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}с
               </h2>
             </li>
@@ -97,7 +100,9 @@ export default function CartScreen(props) {
                 className="primary block"
                 disabled={cartItems.length === 0}
               >
-                Каттоого өтүңүз
+                {
+                  userInfo ? "Буюртма берүү" : "Каттоого өтүңүз"
+                }
               </button>
             </li>
           </ul>
