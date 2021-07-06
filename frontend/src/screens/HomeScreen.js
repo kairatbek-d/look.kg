@@ -31,7 +31,7 @@ export default function HomeScreen() {
 
   return (
     <div>
-      <h2>Бизнес профилдер</h2>
+      <h2>Биздеги дүкөндөр</h2>
       {loadingSellers ? (
         <LoadingBox></LoadingBox>
       ) : errorSellers ? (
@@ -51,7 +51,7 @@ export default function HomeScreen() {
           </Carousel>
         </>
       )}
-      <h2>Өзгөчөлөнгөн товарлар</h2>
+      <h2>Биздеги өнүмдөр</h2>
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (

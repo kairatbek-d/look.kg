@@ -72,7 +72,7 @@ export default function ProductListScreen(props) {
       <div className="row">
         <h1>Өнүмдөр</h1>
         <button type="button" className="primary" onClick={createHandler}>
-          Продукт түзүү
+          Өнүм түзүү
         </button>
       </div>
 

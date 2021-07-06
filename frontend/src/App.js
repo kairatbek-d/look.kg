@@ -116,7 +116,7 @@ function App() {
                   </Link>
                   <ul className="dropdown-content">
                     <li>
-                      <Link to="/productlist/seller">Продукталар</Link>
+                      <Link to="/productlist/seller">Өнүмдөр</Link>
                     </li>
                     <li>
                       <Link to="/orderlist/seller">Буюртмалар</Link>

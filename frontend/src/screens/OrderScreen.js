@@ -57,6 +57,12 @@ export default function OrderScreen(props) {
   const deliverHandler = () => {
     dispatch(deliverOrder(order._id));
   };
+  const getDate = (paidDate) => {
+    let result = paidDate.getDate()+"."+(paidDate.getMonth()+1)+"."+paidDate.getFullYear() + 
+             " "+ paidDate.getHours()+":"+paidDate.getMinutes()+":"+
+             paidDate.getSeconds();
+    return result;
+  }
 
   return loading ? (
     <LoadingBox></LoadingBox>
@@ -64,7 +70,7 @@ export default function OrderScreen(props) {
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
     <div>
-      <h1>Буйрутма {order._id}</h1>
+      <h1>Буйрутма</h1>
       <div className="row top">
         <div className="col-2">
           <ul>
@@ -80,31 +86,29 @@ export default function OrderScreen(props) {
                 </p>
                 {order.isDelivered ? (
                   <MessageBox variant="success">
-                    Жеткирилген убагы {order.deliveredAt}
+                    Жеткирүүгө буйрулган убагы: <br />{ getDate(new Date(order.deliveredAt))}
                   </MessageBox>
                 ) : (
-                  <MessageBox variant="danger">Жеткирилген жок</MessageBox>
+                  <MessageBox variant="danger">Жеткирүүгө буйрулган жок</MessageBox>
                 )}
               </div>
             </li>
             <li>
               <div className="card card-body">
-                <h2>Төлөм</h2>
+                <h2>Төлөө ыкмасы</h2>
                 <p>
-                  <strong>Метод:</strong> {order.paymentMethod}
+                  {order.paymentMethod}
                 </p>
-                {order.isPaid ? (
+                {order.isPaid && order.paymentMethod !== "Накталай акча" ? (
                   <MessageBox variant="success">
-                    Төлөнгөн убагы {order.paidAt}
+                    Төлөгөн убагы: <br /> { getDate(new Date(order.paidAt))}
                   </MessageBox>
-                ) : (
-                  <MessageBox variant="danger">Төлөнгөн эмес</MessageBox>
-                )}
+                ) : ''}
               </div>
             </li>
             <li>
               <div className="card card-body">
-                <h2>Буйрутма берилген буюмдар</h2>
+                <h2>Буйрутма берилген буюм(-дар)</h2>
                 <ul>
                   {order.orderItems.map((item) => (
                     <li key={item.product}>
@@ -150,12 +154,12 @@ export default function OrderScreen(props) {
                   <div>{order.shippingPrice.toFixed(2)} сом</div>
                 </div>
               </li>
-              <li>
+              {/* <li>
                 <div className="row">
                   <div>Салык</div>
                   <div>{order.taxPrice.toFixed(2)} сом</div>
                 </div>
-              </li>
+              </li> */}
               <li>
                 <div className="row">
                   <div>
@@ -180,7 +184,7 @@ export default function OrderScreen(props) {
                         type="button"
                         className="secondary block"
                         onClick={successPaymentHandler}>
-                        Pay
+                        Төлөө
                       </button>
                     </>
                   )}
@@ -196,7 +200,7 @@ export default function OrderScreen(props) {
                     type="button"
                     className="primary block"
                     onClick={deliverHandler}>
-                    Deliver Order
+                    Жеткирүүгө буюруу
                   </button>
                 </li>
               )}

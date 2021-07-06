@@ -43,7 +43,7 @@ userRouter.post(
         return;
       }
     }
-    res.status(401).send({ message: 'Invalid email or password' });
+    res.status(401).send({ message: 'Электрондук почта же сырсөз ката' });
   })
 );
 
@@ -91,6 +91,11 @@ userRouter.put(
           user.seller.logo = `data:image/png;base64,${Buffer.from(user.seller.notLogo.data).toString('base64')}` || user.seller.logo;
           user.seller.description = req.body.sellerDescription || user.seller.description;
           user.seller.instagram.username = req.body.instagram;
+          user.seller.payMethod.visaCard = req.body.payMethod.visaCard;
+          user.seller.payMethod.elsom = req.body.payMethod.elsom;
+          user.seller.payMethod.Omoney = req.body.payMethod.Omoney;
+          user.seller.payMethod.balanceKg = req.body.payMethod.balanceKg;
+          user.seller.payMethod.mBank = req.body.payMethod.mBank;
         }
 
         if (req.body.password) {
