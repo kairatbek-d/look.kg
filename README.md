@@ -15,7 +15,7 @@ Look.kg is an e-commerce platform where stores can sell their goods, similar to 
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/look.kg.git
+    git clone https://github.com/kairatbek-d/look.kg.git
     ```
 2. Navigate to the project directory:
     ```bash
@@ -74,4 +74,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
 
-For questions or feedback, please contact [your-email@example.com].
+For questions or feedback, please contact kairatbek.davranbekov.kk@gmail.com
